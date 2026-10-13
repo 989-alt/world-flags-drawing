@@ -79,8 +79,7 @@ test("모든 나라에 국기 파일이 있다", () => {
   }
 });
 
-// Task 3에서 지도 파일이 생기면 todo를 푼다.
-test("모든 나라에 지도 파일이 있다", { todo: true }, () => {
+test("모든 나라에 지도 파일이 있다", () => {
   for (const c of COUNTRIES) {
     assert.ok(existsSync(new URL(`assets/maps/${c.code}.svg`, root)), c.code);
   }
