@@ -110,9 +110,29 @@ test("direct link #kr", async () => {
   assert.equal(await page.locator("#detail").isVisible(), true);
 });
 
-test("culture with photos and credit", { skip: "내용은 Task 6에서" }, async () => {
+test("map zooms near the target", async () => {
   await open("#kr");
+  await page.waitForSelector("#map svg .target");
+  const r = await page.evaluate(() => {
+    const svg = document.querySelector("#map svg");
+    const vb = svg.viewBox.baseVal;
+    const t = [...svg.querySelectorAll(".target")].map((e) => e.getBoundingClientRect().width);
+    return { vbw: vb.width, tw: Math.max(...t) };
+  });
+  assert.ok(r.vbw < 960, JSON.stringify(r));
+  assert.ok(r.tw >= 30, JSON.stringify(r));
+});
+
+test("culture with photos and credit, greeting", async () => {
+  await open("#us");
   assert.equal(await page.locator("#culture article").count(), 3);
-  assert.equal(await page.locator("#culture article img").count(), 3);
-  assert.equal(await page.locator("#culture article .credit").count(), 3);
+  await page.waitForFunction(() => [...document.querySelectorAll("#culture img")].every((i) => i.complete));
+  const r = await page.evaluate(() => [...document.querySelectorAll("#culture article")].map((a) => ({
+    nw: a.querySelector("img")?.naturalWidth || 0,
+    credit: a.querySelector(".credit")?.textContent || "",
+  })));
+  for (const a of r) { assert.ok(a.nw > 0, JSON.stringify(r)); assert.match(a.credit, /CC|Public|domain/i); }
+  const g = await page.locator("#f-greeting").innerText();
+  assert.ok(g.includes("Hello") || g.length > 3, g);
+  assert.ok(await page.locator("#f-greeting .reading").count() === 1);
 });

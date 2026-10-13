@@ -69,7 +69,29 @@ async function showDetail(c) {
   ]);
   if (token !== renderToken) return;
   $("flag").innerHTML = scoped(flag);
-  if (map) { $("map").innerHTML = scoped(map); $("map-box").hidden = false; }
+  if (map) { $("map").innerHTML = scoped(map); $("map-box").hidden = false; zoomMap($("map").querySelector("svg")); }
+}
+
+// 칠한 나라(와 위치 동그라미) 둘레로 지도를 확대한다. 960:500 비율, 최소 300x156.
+function zoomMap(svg) {
+  if (!svg) return;
+  const els = svg.querySelectorAll(".target, .marker");
+  if (!els.length) return;
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const el of els) {
+    const b = el.getBBox();
+    if (!b.width && !b.height) continue;
+    x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y);
+    x1 = Math.max(x1, b.x + b.width); y1 = Math.max(y1, b.y + b.height);
+  }
+  if (!isFinite(x0)) return;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  let w = Math.max(300, (x1 - x0) * 3, (y1 - y0) * 3 * 960 / 500);
+  w = Math.min(w, 960);
+  const h = w * 500 / 960;
+  const x = Math.min(Math.max(cx - w / 2, 0), 960 - w);
+  const y = Math.min(Math.max(cy - h / 2, 0), 500 - h);
+  svg.setAttribute("viewBox", `${x.toFixed(1)} ${y.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`);
 }
 
 function route() {

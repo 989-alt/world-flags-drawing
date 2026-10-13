@@ -47,7 +47,7 @@ button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .fact .label { font-size: 18px; color: var(--muted); font-weight: 700; }
 .fact .value { font: 400 clamp(30px, 4.2vw, 40px)/1.2 var(--display); }
 .fact .reading { font: 400 20px/1.4 var(--body); color: var(--muted); }
-#map { max-width: 560px; }
+#map { max-width: 100%; }
 #map svg { width: 100%; height: auto; display: block; }
 #map .land { fill: #cdd6dc; }
 #map .target { fill: var(--accent); }
