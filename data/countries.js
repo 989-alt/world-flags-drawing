@@ -8,14 +8,16 @@ export const CONTINENTS = [
 ];
 
 import asia from "./content/asia.js";
+import asia2 from "./content/asia2.js";
 import europe from "./content/europe.js";
+import europe2 from "./content/europe2.js";
 import africa from "./content/africa.js";
 import namerica from "./content/namerica.js";
 import samerica from "./content/samerica.js";
 import oceania from "./content/oceania.js";
 
 // 인사말과 문화는 data/content/<대륙>.js에 나라 code별로 있다.
-const CONTENT = { ...asia, ...europe, ...africa, ...namerica, ...samerica, ...oceania };
+const CONTENT = { ...asia, ...asia2, ...europe, ...europe2, ...africa, ...namerica, ...samerica, ...oceania };
 
 const BASE = [
   { code: "kr", numeric: "410", continent: "asia", name: "대한민국", capital: "서울" },
