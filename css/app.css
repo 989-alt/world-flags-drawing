@@ -1,0 +1,61 @@
+:root {
+  --bg: #eef1f4; --frame: #ffffff; --ink: #1f2a33; --muted: #5d6b76; --line: #d5dde3;
+  --accent: #2f6f8f; --accent-soft: #e2eef4; --chip: #f5f7f9;
+  --display: "Jua", "Nanum Gothic", system-ui, sans-serif;
+  --body: "Nanum Gothic", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #161b20; --frame: #20272e; --ink: #eef2f5; --muted: #a9b5be; --line: #36414b;
+  --accent: #8cc3dd; --accent-soft: #2a3a44; --chip: #283039; color-scheme: dark } }
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 20px/1.6 var(--body); }
+main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+section { background: var(--frame); border: 1px solid var(--line); border-radius: 22px; padding: clamp(16px, 3vw, 32px); }
+h1 { font: 400 clamp(30px, 4.5vw, 42px)/1.2 var(--display); margin: 0 0 18px; }
+button { font-family: var(--body); color: var(--ink); cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.continents { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+.continents button { font-weight: 700; font-size: 20px; min-height: 56px; background: var(--chip);
+  border: 3px solid transparent; border-radius: 14px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+.continents .dot { width: 18px; height: 18px; border-radius: 50%; flex: none; }
+.continents button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.card { background: var(--frame); border: 2px solid var(--line); border-radius: 16px; padding: 14px; min-height: 56px;
+  display: grid; gap: 12px; text-align: center; font-size: 22px; font-weight: 800; }
+.card:hover, .card:focus-visible { border-color: var(--accent); outline: none; }
+.card .thumb { display: grid; place-items: center; aspect-ratio: 3/2; }
+.card .thumb svg { max-width: 100%; max-height: 100%; border: 1px solid var(--line); border-radius: 4px; display: block; }
+
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; min-height: 64px; }
+.back { font-weight: 700; font-size: 20px; min-height: 56px; background: var(--chip); border: 0; border-radius: 14px; padding: 12px 22px; }
+.toggle { display: inline-flex; background: var(--chip); border-radius: 14px; padding: 5px; gap: 4px; }
+.toggle button { font-weight: 700; font-size: 19px; min-height: 56px; color: var(--muted); background: transparent; border: 0; border-radius: 10px; padding: 12px 18px; }
+.toggle button[aria-pressed="true"] { background: var(--frame); color: var(--ink); box-shadow: 0 0 0 2px var(--accent); }
+
+/* 국기: 위쪽 막대와 여백을 뺀 높이 안에 전체가 들어온다 */
+.big { display: grid; place-items: center; margin-bottom: 22px; height: calc(100dvh - 190px); min-height: 160px; }
+.big svg { width: 100%; height: 100%; display: block; }
+.big.outline svg *:not(g):not(svg):not(defs):not(title):not(desc):not([data-nofill]) {
+  fill: #ffffff; stroke: #1f2a33; stroke-width: 2px; vector-effect: non-scaling-stroke; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 14px; }
+.fact { background: var(--chip); border-radius: 16px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+.fact .label { font-size: 18px; color: var(--muted); font-weight: 700; }
+.fact .value { font: 400 clamp(30px, 4.2vw, 40px)/1.2 var(--display); }
+.fact .reading { font: 400 20px/1.4 var(--body); color: var(--muted); }
+#map { max-width: 560px; }
+#map svg { width: 100%; height: auto; display: block; }
+#map .land { fill: #cdd6dc; }
+#map .target { fill: var(--accent); }
+#map .marker { fill: none; stroke: var(--accent); stroke-width: 3px; }
+#culture { display: grid; gap: 14px; margin-top: 14px; }
+#culture article { background: var(--chip); border-radius: 16px; padding: 16px 18px; }
+#culture h3 { font: 400 28px/1.3 var(--display); margin: 0 0 8px; }
+#culture img { width: 100%; max-width: 560px; height: auto; border-radius: 10px; display: block; margin-bottom: 8px; }
+#culture p { margin: 8px 0; }
+.credit { font-size: 16px; color: var(--muted); }
+.credit a { color: inherit; }

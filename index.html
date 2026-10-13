@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>국기 따라 그리기</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<main>
+  <section id="list">
+    <h1>국기 따라 그리기</h1>
+    <div class="continents" id="continents"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="detail" hidden>
+    <div class="top">
+      <button class="back" id="back" type="button">← 국기 고르기</button>
+      <div class="toggle" role="group" aria-label="보기 방식">
+        <button type="button" id="mode-color" aria-pressed="true">색 보기</button>
+        <button type="button" id="mode-outline" aria-pressed="false">테두리만 보기</button>
+      </div>
+    </div>
+    <div class="big" id="flag"></div>
+    <div class="facts">
+      <div class="fact"><div class="label">나라 이름</div><div class="value" id="f-name"></div></div>
+      <div class="fact"><div class="label">수도</div><div class="value" id="f-capital"></div></div>
+      <div class="fact" id="greeting-box" hidden><div class="label">인사말</div><div class="value" id="f-greeting"></div></div>
+    </div>
+    <div class="fact wide" id="map-box" hidden><div class="label">지도</div><div id="map"></div></div>
+    <div id="culture"></div>
+  </section>
+</main>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
