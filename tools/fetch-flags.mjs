@@ -5,9 +5,18 @@ import { COUNTRIES } from "../data/countries.js";
 
 const COMMIT = "c09927e63705529bbf59ca6684cd9b23225dddad";
 const BASE = `https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@${COMMIT}/svg`;
+// 예외: 페루·코스타리카는 문장(coat of arms)이 없는 일반 국기를 쓴다(따라 그리기 쉬움).
+// hampusborgos 버전은 문장이 있는 국가기라서, 위키미디어 공용의 본 파일로 덮어쓴다.
+const OVERRIDES = {
+  pe: "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Peru.svg",
+  cr: "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Costa_Rica.svg",
+};
+const HEADERS = { "User-Agent": "world-flags-drawing/1.0 (education)" };
+
 const outDir = new URL("../assets/flags/", import.meta.url);
 
 export function normalize(svg) {
+  svg = svg.replace(/<!DOCTYPE[^>]*>/i, "");
   const m = svg.match(/<svg\b[^>]*>/);
   if (!m) throw new Error("no <svg> root");
   let tag = m[0];
@@ -26,7 +35,7 @@ export function normalize(svg) {
 
 mkdirSync(outDir, { recursive: true });
 for (const { code } of COUNTRIES) {
-  const res = await fetch(`${BASE}/${code}.svg`);
+  const res = await fetch(OVERRIDES[code] ?? `${BASE}/${code}.svg`, { headers: HEADERS });
   if (!res.ok) throw new Error(`${code}: HTTP ${res.status}`);
   writeFileSync(new URL(`${code}.svg`, outDir), normalize(await res.text()));
   console.log("ok", code);

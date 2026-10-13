@@ -29,3 +29,13 @@ test("비율 샘플", () => {
   assert.ok(Math.abs(ratio("kr") - 1.5) < 0.01);
   assert.ok(Math.abs(ratio("us") - 1.9) < 0.01);
 });
+
+// 페루·코스타리카는 문장 없는 일반 국기. 도형이 줄무늬 수준(3개 이하)이어야 한다.
+test("pe, cr 국기에는 문장이 없다", () => {
+  for (const code of ["pe", "cr"]) {
+    const svg = read(code);
+    const shapes = (svg.match(/<(path|rect|circle|ellipse|polygon|polyline|line|use|image|g)\b/g) || []).length;
+    assert.ok(shapes <= 3, `${code} 도형 ${shapes}개`);
+    assert.ok(svg.length < 1000, `${code} 크기 ${svg.length}`);
+  }
+});
