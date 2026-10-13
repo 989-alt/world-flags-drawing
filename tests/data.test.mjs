@@ -10,8 +10,8 @@ const atlas = JSON.parse(
 const atlasIds = new Set(atlas.objects.countries.geometries.map((g) => g.id));
 
 const LICENSES = [
-  "Public domain", "CC0", "CC BY 2.0", "CC BY 3.0", "CC BY 4.0",
-  "CC BY-SA 2.0", "CC BY-SA 3.0", "CC BY-SA 4.0",
+  "Public domain", "CC0", "CC BY 1.0", "CC BY 2.0", "CC BY 2.5", "CC BY 3.0", "CC BY 4.0",
+  "CC BY-SA 1.0", "CC BY-SA 2.0", "CC BY-SA 2.5", "CC BY-SA 3.0", "CC BY-SA 4.0",
 ];
 
 test("대륙은 여섯 개이고 순서가 정해져 있다", () => {

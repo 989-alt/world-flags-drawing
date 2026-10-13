@@ -7,8 +7,17 @@ export const CONTINENTS = [
   { id: "oceania", name: "오세아니아", color: "#3aa0a6" },
 ];
 
-// greeting, culture는 Task 6~10에서 채운다.
-export const COUNTRIES = [
+import asia from "./content/asia.js";
+import europe from "./content/europe.js";
+import africa from "./content/africa.js";
+import namerica from "./content/namerica.js";
+import samerica from "./content/samerica.js";
+import oceania from "./content/oceania.js";
+
+// 인사말과 문화는 data/content/<대륙>.js에 나라 code별로 있다.
+const CONTENT = { ...asia, ...europe, ...africa, ...namerica, ...samerica, ...oceania };
+
+const BASE = [
   { code: "kr", numeric: "410", continent: "asia", name: "대한민국", capital: "서울" },
   { code: "jp", numeric: "392", continent: "asia", name: "일본", capital: "도쿄" },
   { code: "cn", numeric: "156", continent: "asia", name: "중국", capital: "베이징" },
@@ -87,3 +96,5 @@ export const COUNTRIES = [
   { code: "fj", numeric: "242", continent: "oceania", name: "피지", capital: "수바" },
   { code: "pg", numeric: "598", continent: "oceania", name: "파푸아뉴기니", capital: "포트모르즈비" },
 ];
+
+export const COUNTRIES = BASE.map((c) => ({ ...c, ...CONTENT[c.code] }));
