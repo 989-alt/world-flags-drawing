@@ -55,7 +55,7 @@ button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 #culture { display: grid; gap: 14px; margin-top: 14px; }
 #culture article { background: var(--chip); border-radius: 16px; padding: 16px 18px; }
 #culture h3 { font: 400 28px/1.3 var(--display); margin: 0 0 8px; }
-#culture img { width: 100%; max-width: 560px; height: auto; border-radius: 10px; display: block; margin-bottom: 8px; }
+#culture img { width: 100%; max-width: 560px; height: auto; max-height: 380px; object-fit: cover; border-radius: 10px; display: block; margin-bottom: 8px; }
 #culture p { margin: 8px 0; }
 .credit { font-size: 16px; color: var(--muted); }
 .credit a { color: inherit; }
