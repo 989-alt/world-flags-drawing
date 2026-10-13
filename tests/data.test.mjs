@@ -62,6 +62,9 @@ test("greeting과 culture가 있는 나라는 형식을 지킨다", () => {
     if (c.culture) {
       assert.equal(c.culture.length, 3, `${c.code} culture`);
       for (const item of c.culture) {
+        for (const [k, v] of [["title", item.title], ["photo.file", item.photo?.file], ["photo.author", item.photo?.author]]) {
+          assert.ok(typeof v === "string" && v.trim() !== "", `${c.code} ${k}`);
+        }
         const sentences = item.text.trim().split(/(?<=[.!?])\s+/).length;
         assert.ok(sentences >= 3 && sentences <= 4, `${c.code} ${item.title} 문장 수 ${sentences}`);
         assert.ok(item.text.trim().endsWith("."), `${c.code} ${item.title} 마침표`);
@@ -86,7 +89,7 @@ test("모든 나라에 지도 파일이 있다", () => {
 });
 
 // Task 10에서 내용이 모두 채워지면 todo를 푼다.
-test("모든 나라가 내용을 갖췄다", { todo: true }, () => {
+test("모든 나라가 내용을 갖췄다", () => {
   for (const c of COUNTRIES) {
     assert.ok(c.greeting, `${c.code} greeting`);
     assert.ok(c.culture && c.culture.length === 3, `${c.code} culture`);

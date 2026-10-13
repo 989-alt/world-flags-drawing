@@ -28,6 +28,9 @@ test("비율 샘플", () => {
   assert.ok(ratio("np") < 1);
   assert.ok(Math.abs(ratio("kr") - 1.5) < 0.01);
   assert.ok(Math.abs(ratio("us") - 1.9) < 0.01);
+  assert.ok(Math.abs(ratio("gb") - 2) < 0.01);
+  assert.ok(Math.abs(ratio("pe") - 1.5) < 0.01);
+  assert.ok(Math.abs(ratio("cr") - 5 / 3) < 0.01);
 });
 
 // 페루·코스타리카는 문장 없는 일반 국기. 도형이 줄무늬 수준(3개 이하)이어야 한다.

@@ -22,3 +22,22 @@ test("scopeIds prefixes ids and references", () => {
   const out = scopeIds('<svg><path id="a"/><use xlink:href="#a"/><rect fill="url(#a)"/></svg>', "p-");
   assert.ok(out.includes('id="p-a"') && out.includes('href="#p-a"') && out.includes("url(#p-a)"));
 });
+
+test("prepareSvg marks descendants of g[fill=none] with data-nofill, not overridden children", () => {
+  const out = prepareSvg('<svg viewBox="0 0 10 5"><g fill="none" stroke="#000"><path id="a" d="M0 0"/><circle r="1" fill="#f00"/></g><rect width="1" height="1"/></svg>');
+  assert.match(out, /<path id="a"[^>]*data-nofill/);
+  assert.ok(!/<circle[^>]*data-nofill/.test(out));
+  assert.ok(!/<rect[^>]*data-nofill/.test(out));
+});
+
+test("prepareSvg marks stroked shapes (own or inherited stroke) with data-stroked", () => {
+  const out = prepareSvg('<svg viewBox="0 0 10 5"><path d="M0 1h10" stroke="#fff" stroke-width="3"/>' +
+    '<g stroke="#000"><rect width="1" height="1"/><circle r="1" stroke="none"/></g>' +
+    '<defs><path id="d" d="M0 0" stroke="#000"/></defs><rect width="2" height="2" fill="#00f"/></svg>');
+  assert.match(out, /<path d="M0 1h10"[^>]*data-stroked/);
+  assert.match(out, /<g stroke="#000"><rect[^>]*data-stroked/);
+  assert.ok(!/<circle[^>]*data-stroked/.test(out));
+  assert.ok(!/<path id="d"[^>]*data-stroked/.test(out));
+  assert.ok(!/<g[^>]*data-stroked/.test(out));
+  assert.ok(!/fill="#00f"[^>]*data-stroked/.test(out));
+});
